@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Mix the Names!</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+
+.column {
+  float: left;
+  width: 33.33%;
+  padding: 10px;
+  height: 300px;
+}
+
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+</style>
+
+
+
+  </head>
+  <body>
+    <div style="background-color:#F8F8FF">
+    <h1 id="troll">Names</h1>
+    <p></p>
+
+    <div id="gotem"></div>
+
+    <p></p>
+
+    <body>
+      <form id ="myForm">
+        <input id="getIt" placeholder="Name "name ="name">
+        <button type = "submit" onclick="myFunction()">Add Names</button>
+      </form>
+
+      <br>
+      <br>
+      </div>
+
+      <div class ="row">
+          <div class="column" style="background-color:#FAEBD7;">
+              <form id ="myForm2"><button type = "submit" onclick="getName()">Display Names</button></form>
+              <div> Display People who Didn't go Yet: </div>
+
+              <div id="display"></div>
+          </div>
+
+
+          <div class="column" style="background-color:#FFEBCD;">
+              <form id = "myForm3"> <button type = "submit" onclick= "getRandom()"> Select Random </button> </form>
+              <div>Pick Random: </div>
+              <div id="went"></div>
+          </div>
+
+
+
+
+
+          <div class="column" style="background-color:#FFE4C4;">
+                <form id = "myForm5"> <button type = "submit" onclick= "getWent()"> See who went </button> </form>
+                <div id = "gone"> People who Went :</div>
+                <div id="go"></div>
+          </div>
+        </div>
+
+      <br>
+  <form id ="myForm4"><button type = "submit" onclick="restart()">Restart</button></form>
+
+      <script>
+        function myFunction() {
+          var text = "";
+          var form = document.getElementById("myForm");
+          function handleForm(event) { event.preventDefault(); }
+          form.addEventListener('submit', handleForm);
+
+          let data = document.getElementById("getIt").value;
+          console.log(data);
+
+          fetch('/addName?name='+ data)
+          .then((response) => {
+            console.log(response)
+            return response.json();
+          })
+          .then((data) => {
+
+              for(var i = 0; i<data.length; i++){
+                text = text + "<div>" + data[i] + "</div>"
+               }
+               document.getElementById("display").innerHTML = text;
+
+
+              });
+
+        }
+        function getName(){
+
+          var text = "";
+          var form = document.getElementById("myForm2");
+          function handleForm(event) { event.preventDefault(); }
+          form.addEventListener('submit', handleForm);
+
+          fetch('/getNames')
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            for(var i = 0; i<data.length; i++){
+              text = text + "<div>" + data[i] + "</div>"
+             }
+             document.getElementById("display").innerHTML = text;
+          });
+          getWent();
+        }
+
+        function getRandom(){
+
+          var text = "";
+          var form = document.getElementById("myForm3");
+          function handleForm(event) { event.preventDefault(); }
+          form.addEventListener('submit', handleForm);
+
+          fetch('/getRandom')
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+
+             document.getElementById("went").innerHTML = data;
+          });
+
+          var update = "";
+
+          fetch('/getNames')
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            for(var i = 0; i<data.length; i++){
+              update = update + "<div>" + data[i] + "</div>"
+             }
+
+             document.getElementById("display").innerHTML = update;
+
+          });
+          getWent();
+        }
+        function restart(){
+
+          var text = "";
+          var form4 = document.getElementById("myForm4");
+          function handleForm(event) { event.preventDefault(); }
+          form4.addEventListener('submit', handleForm);
+
+          fetch('/getRestart')
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            for(var i = 0; i<data.length; i++){
+              text = text + "<div>" + data[i] + "</div>"
+             }
+             document.getElementById("display").innerHTML = text;
+          });
+          getWent();
+
+        }
+
+        function getWent(){
+          var text = "";
+          var form5 = document.getElementById("myForm5");
+          function handleForm(event) { event.preventDefault(); }
+          form5.addEventListener('submit', handleForm);
+
+          fetch('/getWent')
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            for(var i = 0; i<data.length; i++){
+              text = text + "<div>" + data[i] + "</div>"
+             }
+             document.getElementById("go").innerHTML = text;
+          });
+        }
+      </script>
+
+    </body>
+
+    <!-- include the Glitch button to show what the webpage is about and
+          to make it easier for folks to view source and remix -->
+    <div class="glitchButton" style="position:fixed;top:20px;right:20px;"></div>
+    <script src="https://button.glitch.me/button.js"></script>
+  </body>
+</html>

@@ -1,0 +1,24 @@
+{
+  "name": "fun",
+  "version": "1.0.0",
+  "description": "Just something for fun",
+  "main": "index.js",
+  "scripts": {
+    "test": "server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yingwei123/fun.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yingwei123/fun/issues"
+  },
+  "homepage": "https://github.com/yingwei123/fun#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "fs": "0.0.1-security"
+  }
+}
