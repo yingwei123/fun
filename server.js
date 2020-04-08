@@ -18,7 +18,7 @@ app.get('/addName', (req,res,next)=>{
   fs.writeFileSync('name.txt', content+ name+",");
 
   var toSend = fs.readFileSync('name.txt','utf8');
-  console.log(toSend)
+
   res.send(toSend.split(','));
 
 })
@@ -26,7 +26,7 @@ app.get('/addName', (req,res,next)=>{
 app.get('/getNames', (req,res,next)=>{
 
 var content = fs.readFileSync('name.txt','utf8');
-console.log(content);
+
 res.send(content.split(','))
 
 
@@ -86,7 +86,8 @@ app.get('/getRandom', (req,res,next)=>{
       fs.writeFileSync('name.txt', removed);
 
 
-
+      console.log(name);
+      name = JSON.stringify(name);
     res.send(name)
   }
   else{

@@ -135,7 +135,7 @@
             return response.json();
           })
           .then((data) => {
-
+            console.log(data);
              document.getElementById("went").innerHTML = data;
           });
 
@@ -170,6 +170,7 @@
             for(var i = 0; i<data.length; i++){
               text = text + "<div>" + data[i] + "</div>"
              }
+             document.getElementById("went").innerHTML = "None"
              document.getElementById("display").innerHTML = text;
           });
           getWent();
@@ -201,5 +202,5 @@
           to make it easier for folks to view source and remix -->
     <div class="glitchButton" style="position:fixed;top:20px;right:20px;"></div>
     <script src="https://button.glitch.me/button.js"></script>
-  </body>
+
 </html>
